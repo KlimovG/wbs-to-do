@@ -1,6 +1,7 @@
 /* Settings */
 * {
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 html {
@@ -69,11 +70,18 @@ button {
 }
 
 /* Task styles */
+.actual__row {
+  flex-direction: column;
+  width: 100%;
+}
 
 .task {
   display: flex;
   align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
 }
+
 
 .task__wrap-check {
   display: flex;
@@ -92,6 +100,7 @@ button {
   height: 20px;
   display: block;
   margin-right: 12px;
+  text-align: left;
 }
 
 .task__check-label::before {
@@ -113,10 +122,10 @@ button {
 }
 
 .task__checkbox:checked+.task__check-label::before {
-  background-image: url("../img/check.svg");
+  background: url("../img/check.svg"), #e8eaee;
   background-repeat: no-repeat;
-  background-size: 10px 10px;
-  background-position: center center;
+  background-size: 10px 9px;
+  background-position: 3px center;
 }
 
 .task__wrap-input {
@@ -124,24 +133,23 @@ button {
   margin-right: 20px;
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 .task__text {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   z-index: 0;
-  padding: 3px 10px;
+  padding: 10px 15px;
   background: #F4F6FA;
   border-radius: 10px;
 }
 
 .task__text-label {
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 2;
-  padding: 3px 10px;
+  padding: 10px 15px;
 }
 
 .task__edit,
@@ -156,6 +164,14 @@ button {
   margin-right: 5px;
 }
 
+.task__edit svg {
+  fill: #383F50;
+}
+
+.task__edit.active svg {
+  fill: #52CC86;
+}
+
 .task-add {
   display: flex;
   align-items: center;
@@ -167,7 +183,8 @@ button {
   background: #F4F6FA;
   border-radius: 10px;
   margin-right: 15px;
-  padding: 3px 10px;
+  padding: 10px 15px;
+
 }
 
 .task-add__btn {
