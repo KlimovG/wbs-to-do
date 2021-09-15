@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To do List</title>
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do List</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    
+  <main>
+    <header class="header">
+      <div class="container">
+        <h1 class="title"><img src="img/logo.svg" alt="logo">GK To-Do</h1>
+        <nav class="header__nav">
+          <a href="#" class="header__link">Actual</a>
+          <a href="#" class="header__link">Completed</a>
+        </nav>
+      </div>
+    </header>
+    <section class="section actual">
+      <div class="container">
+        <div class="task">
+          <div class="task__wrap-check">
+            <input name="taskCheck" type="checkbox" class="task__checkbox">
+            <label for="taskCheck" class="task__check-label"></label>
+          </div>
+          <div class="task__wrap-input">
+            <input type="text" class="task__text" name="input-task">
+            <label for="input-task" class="task__text-label">Our task</label>
+          </div>
+          <button class="task__edit">
+            <img src="img/edit.svg" alt="Edit icon">
+          </button>
+          <button class="task__delete">
+            <img src="img/delete.svg" alt="delete icon">
+          </button>
+        </div>
+        <div class="task-add">
+          <input type="text" class="task-add__text">
+          <button class="task-add__btn">
+            <img src="img/submit.svg" alt="add button icon">
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
+
 </html>
