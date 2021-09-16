@@ -1,8 +1,8 @@
 // Add button
 // 1. variable declaration
-const addForm = document.forms[0];
+const addForm = document.forms.addForm;
 const taskContainer = document.querySelector('#taskContainer');
-const addInput = addForm.elements[0];
+const addInput = addForm.addInput;
 let editBtn = document.getElementsByClassName('task__edit');
 let editableInput = document.getElementsByClassName('task__text');
 
@@ -36,6 +36,7 @@ const addTask = (task, i) => {
   `;
   //insert the task into contianer with other tasks
   taskContainer.insertAdjacentHTML("beforeend", taskTemplate);
+  editBtnLoop()
 }
 
 // 2. add a click listener to addBtn to create the task
@@ -48,7 +49,7 @@ addForm.addEventListener("submit", (e) => {
     const numOfTask = editBtn.length
     console.log(numOfTask)
     // if it false, then the function addTask will be executed
-    addTask(addInput.value,numOfTask);
+    addTask(addInput.value, numOfTask);
     // After this the value of addInput need to be cleared 
     addInput.value = " ";
   }
@@ -70,17 +71,23 @@ const disableEditInput = (input, btn) => {
   btn.classList.remove("active")
 }
 //3. loo to select the clickable buttons und inputs
-for (let i = 0; i < editBtn.length; i++) {
-  editBtn[i].addEventListener("click", () => {
-    enableEditInput(editableInput[i])
-    editBtn[i].classList.add("active")
-    // add value for label and input after changes
-    editableInput[i].addEventListener('focusout', () => {
-      disableEditInput(editableInput[i], editBtn[i])
+function editBtnLoop() {
+  for (let i = 0; i < editBtn.length; i++) {
+    editBtn[i].addEventListener("click", () => {
+      //4. function when the editable input lose it focus or changed
+      enableEditInput(editableInput[i])
+      editBtn[i].classList.add("active")
+      // add value for label and input after changes
+      editableInput[i].addEventListener('focusout', () => {
+        disableEditInput(editableInput[i], editBtn[i])
+      })
+      editableInput[i].addEventListener('change', () => {
+        disableEditInput(editableInput[i], editBtn[i])
+      })
     })
-    editableInput[i].addEventListener('change', () => {
-      disableEditInput(editableInput[i], editBtn[i])
-    })
-  })
-};
-//4. function when the editable input lose it focus or changed
+  };
+}
+editBtnLoop()
+
+
+//Delete task

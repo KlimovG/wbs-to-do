@@ -172,6 +172,16 @@ button {
   fill: #52CC86;
 }
 
+.task__delete svg {
+  fill: #383F50;
+  width: 29px;
+  height: auto;
+}
+
+.task__delete.active svg {
+  fill: #EB5757;
+}
+
 .task-add {
   display: flex;
   align-items: center;
