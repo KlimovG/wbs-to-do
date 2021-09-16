@@ -5,6 +5,8 @@ const taskContainer = document.querySelector('#taskContainer');
 const addInput = addForm.addInput;
 let editBtn = document.getElementsByClassName('task__edit');
 let editableInput = document.getElementsByClassName('task__text');
+let deleteBtn = document.getElementsByClassName('task__delete');
+
 
 // 2. Declare the function to create a task
 
@@ -30,13 +32,16 @@ const addTask = (task, i) => {
         </svg>
       </button>
       <button class="task__delete">
-        <img src="img/delete.svg" alt="delete icon">
+      <svg viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.39062 4.672H9.1875C9.29922 4.672 9.39062 4.58059 9.39062 4.46887V4.672H17.1094V4.46887C17.1094 4.58059 17.2008 4.672 17.3125 4.672H17.1094V6.50012H18.9375V4.46887C18.9375 3.57258 18.2088 2.84387 17.3125 2.84387H9.1875C8.29121 2.84387 7.5625 3.57258 7.5625 4.46887V6.50012H9.39062V4.672ZM22.1875 6.50012H4.3125C3.86309 6.50012 3.5 6.86321 3.5 7.31262V8.12512C3.5 8.23684 3.59141 8.32825 3.70312 8.32825H5.23672L5.86387 21.6075C5.90449 22.4734 6.62051 23.1564 7.48633 23.1564H19.0137C19.882 23.1564 20.5955 22.4759 20.6361 21.6075L21.2633 8.32825H22.7969C22.9086 8.32825 23 8.23684 23 8.12512V7.31262C23 6.86321 22.6369 6.50012 22.1875 6.50012ZM18.8182 21.3282H7.68184L7.06738 8.32825H19.4326L18.8182 21.3282Z" />
+      </svg>
       </button>
     </div>
   `;
   //insert the task into contianer with other tasks
   taskContainer.insertAdjacentHTML("beforeend", taskTemplate);
   editBtnLoop()
+  deleteBtnLoop()
 }
 
 // 2. add a click listener to addBtn to create the task
@@ -56,9 +61,6 @@ addForm.addEventListener("submit", (e) => {
 })
 
 // Edit function
-//1. Variable declaration
-
-
 //2. Function declaration to put eneble the input und put the cursor into it
 const enableEditInput = (input) => {
   input.removeAttribute("disabled")
@@ -89,5 +91,14 @@ function editBtnLoop() {
 }
 editBtnLoop()
 
-
 //Delete task
+//1. Futnction to loop all delete buttons
+function deleteBtnLoop() {
+  const tasks = document.querySelectorAll('.task')
+  for (let i = 0; i < deleteBtn.length; i++) {
+    deleteBtn[i].addEventListener("click", () => {
+      tasks[i].remove()
+    })
+  };
+}
+deleteBtnLoop()
