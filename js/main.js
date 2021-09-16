@@ -2,22 +2,24 @@
 // 1. variable declaration
 const addForm = document.forms[0];
 const taskContainer = document.querySelector('#taskContainer');
-const addInput = addForm.name;
+const addInput = addForm.elements[0];
+let editBtn = document.getElementsByClassName('task__edit');
+let editableInput = document.getElementsByClassName('task__text');
 
 // 2. Declare the function to create a task
 
-const addTask = (task) => {
+const addTask = (task, i) => {
   //Variable with html template for tasks
   const taskTemplate = `
     <div class="task">
       <div class="task__wrap-check">
-        <input id="taskCheck" name="taskCheck" type="checkbox"
+        <input id="taskCheck${i}" name="taskCheck" type="checkbox"
           class="task__checkbox">
-        <label for="taskCheck" class="task__check-label"></label>
+        <label for="taskCheck${i}" class="task__check-label"></label>
       </div>
       <div class="task__wrap-input">
         <input disabled type="text" class="task__text" name="input-task" value="${task}">
-        <label for="input-task" class="task__text-label">${task}</label>
+
       </div>
       <button class="task__edit">
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -43,8 +45,10 @@ addForm.addEventListener("submit", (e) => {
   if (!addInput.value) {
     alert("Input is empty")
   } else {
+    const numOfTask = editBtn.length
+    console.log(numOfTask)
     // if it false, then the function addTask will be executed
-    addTask(addInput.value);
+    addTask(addInput.value,numOfTask);
     // After this the value of addInput need to be cleared 
     addInput.value = " ";
   }
@@ -52,9 +56,8 @@ addForm.addEventListener("submit", (e) => {
 
 // Edit function
 //1. Variable declaration
-const editBtn = document.getElementsByClassName('task__edit');
-const editableInput = document.getElementsByClassName('task__text');
-const editLabel = document.getElementsByClassName('task__text-label')
+
+
 //2. Function declaration to put eneble the input und put the cursor into it
 const enableEditInput = (input) => {
   input.removeAttribute("disabled")
