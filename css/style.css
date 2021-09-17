@@ -399,3 +399,7 @@ button {
 .delete-modal__decline {
   background-color: #B2B7BB;
 }
+.completed-tasks__row{
+  flex-direction: column;
+  width: 100%;
+}
