@@ -2,6 +2,7 @@
 const addForm = document.forms.addForm;
 const taskContainer = document.querySelector('#taskContainer');
 const addInput = addForm.querySelector('#addInput');
+const addBtn = addForm.querySelector('#addBtn')
 let editBtn = document.getElementsByClassName('task__edit');
 let editableInput = document.getElementsByClassName('task__text');
 let deleteBtn = document.getElementsByClassName('task__delete');
@@ -91,6 +92,18 @@ addForm.addEventListener("submit", (e) => {
   }
 })
 
+//4. add an active class to task add button if add input not empty
+addInput.addEventListener("keyup", (e) => {
+  console.log(e.key)
+  if (e.key == "space" || !addInput.value || !/\S/.test(addInput.value)) {
+    addBtn.classList.remove('active')
+    if (!addInput.value) {
+      addBtn.classList.remove('active')
+    }
+  } else {
+    addBtn.classList.add('active')
+  }
+})
 // Edit function
 //2. Function declaration to put eneble the input und put the cursor into it
 const enableEditInput = (input) => {

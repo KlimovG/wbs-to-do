@@ -87,7 +87,7 @@ button {
   transform: translateX(-50%);
   width: 50%;
   height: 2px;
-  background-color: #000;
+  background-color: #383F50;
 }
 
 /* Task styles */
@@ -262,6 +262,17 @@ button {
   justify-content: center;
 }
 
+.task-add__btn svg {
+  width: 38px;
+  height: auto;
+  fill: #383F50;
+  transition: fill .1s;
+
+}
+
+.task-add__btn.active svg {
+  fill: #2F80ED;
+}
 
 
 /* Styles for complete tasks */
