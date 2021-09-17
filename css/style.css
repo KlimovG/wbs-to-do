@@ -200,3 +200,20 @@ button {
 .task-add__btn {
   cursor: pointer;
 }
+
+/* Styles for complete tasks */
+.task.complete {
+  position: relative;
+  opacity: 0.5;
+}
+
+.task.complete::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 1px);
+  width: 100%;
+  height: 2px;
+  z-index: 9;
+  background-color: #2E3239;
+  border-radius: 1px;
+}

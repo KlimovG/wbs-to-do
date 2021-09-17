@@ -2,10 +2,18 @@
 // 1. variable declaration
 const addForm = document.forms.addForm;
 const taskContainer = document.querySelector('#taskContainer');
-const addInput = addForm.addInput;
+const addInput = addForm.querySelector('#addInput');
 let editBtn = document.getElementsByClassName('task__edit');
 let editableInput = document.getElementsByClassName('task__text');
 let deleteBtn = document.getElementsByClassName('task__delete');
+let tasksActual = document.getElementsByClassName('task')
+let tasksComplete = document.getElementsByClassName('task-complete')
+let checkboxTaskLabel = document.getElementsByClassName('task__check-label')
+let checkboxTaskInput = document.getElementsByClassName('task__checkbox')
+let tasks = document.getElementsByClassName('task')
+let numOfTask = tasks.length
+
+
 
 
 // 2. Declare the function to create a task
@@ -42,21 +50,21 @@ const addTask = (task, i) => {
   taskContainer.insertAdjacentHTML("beforeend", taskTemplate);
   editBtnLoop()
   deleteBtnLoop()
+  completeTask()
+  numOfTask++
 }
 
 // 2. add a click listener to addBtn to create the task
 addForm.addEventListener("submit", (e) => {
   // it has to be checked if the input is empty
   e.preventDefault()
-  if (!addInput.value) {
+  if (!addInput.value || !/\S/.test(addInput.value)) {
     alert("Input is empty")
   } else {
-    const numOfTask = editBtn.length
-    console.log(numOfTask)
     // if it false, then the function addTask will be executed
     addTask(addInput.value, numOfTask);
     // After this the value of addInput need to be cleared 
-    addInput.value = " ";
+    addInput.value = "";
   }
 })
 
@@ -94,7 +102,6 @@ editBtnLoop()
 //Delete task
 //1. Futnction to loop all delete buttons
 function deleteBtnLoop() {
-  const tasks = document.querySelectorAll('.task')
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", () => {
       tasks[i].remove()
@@ -102,3 +109,24 @@ function deleteBtnLoop() {
   };
 }
 deleteBtnLoop()
+
+//Completed tasks
+function completeTask() {
+  for (let i = 0; i < checkboxTaskInput.length; i++) {
+    checkboxTaskInput[i].addEventListener("change", () => {
+      // check checkboxes istead of div task
+      console.log(i)
+      console.log(tasks[i])
+      console.log(checkboxTaskInput[i])
+      console.log(checkboxTaskLabel[i])
+      tasks[i].classList.toggle("complete")
+      // } else {
+      //   tasks[i].classList.add("complete")
+
+      // }
+
+
+    })
+  };
+}
+completeTask()
