@@ -112,13 +112,10 @@ deleteBtnLoop()
 
 //Completed tasks
 function completeTask() {
-  for (let i = 0; i < checkboxTaskInput.length; i++) {
+  for (let i = 0; i < tasks.length; i++) {
     checkboxTaskInput[i].addEventListener("change", () => {
       // check checkboxes istead of div task
       console.log(i)
-      console.log(tasks[i])
-      console.log(checkboxTaskInput[i])
-      console.log(checkboxTaskLabel[i])
       tasks[i].classList.toggle("complete")
       // } else {
       //   tasks[i].classList.add("complete")
