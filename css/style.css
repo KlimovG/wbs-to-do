@@ -40,7 +40,7 @@ button {
 .container {
   max-width: 540px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,8 +129,8 @@ button {
   content: '';
   position: absolute;
   top: calc(50% - 1px);
-  left: -10px;
-  width: calc(100% - 20px);
+  left: -5px;
+  width: calc(100% - 25px);
   height: 2px;
   z-index: 3;
   background-color: rgba(46, 50, 57, .5);
