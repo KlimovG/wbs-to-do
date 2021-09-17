@@ -18,14 +18,14 @@ const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
 const deleteModalContainer = deleteModal.querySelector('.delete-modal__container')
 
 //change display for modals
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    emptyModal.style.display = "flex";
-    deleteModal.style.display = "flex";
+// document.addEventListener("DOMContentLoaded", () => {
+//   setTimeout(() => {
+//     emptyModal.style.display = "";
+//     deleteModal.style.display = "";
 
-  }, 1000);
+//   }, 3000);
 
-});
+// });
 
 // Add button
 // 2. Declare the function to create a task
@@ -103,6 +103,7 @@ const disableEditInput = (input, btn) => {
   // label.textContent = input.value;
   btn.classList.remove("active")
 }
+
 //3. loo to select the clickable buttons und inputs
 function editBtnLoop() {
   for (let i = 0; i < editBtn.length; i++) {
@@ -164,19 +165,14 @@ function completeTask() {
 
       console.log(i)
       tasks[i].classList.toggle("complete")
+      if (tasks[i].classList.contains("complete")) {
+        editBtn[i].disabled = true
+      } else {
+        editBtn[i].disabled = false
+
+      }
 
     }
-    // checkboxTaskInput[i].addEventListener("change", () => {
-    //   // check checkboxes istead of div task
-    //   console.log(i)
-    //   tasks[i].classList.add("complete")
-    //   // } else {
-    //   //   tasks[i].classList.add("complete")
-
-    //   // }
-
-
-    // })
   };
 }
 completeTask()
