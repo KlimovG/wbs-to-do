@@ -25,6 +25,7 @@
     </header>
     <section class="section actual">
       <div class="container">
+        <h2 class="section__title">Actual tasks</h2>
         <div class="row actual__row" id="taskContainer">
           <div class="task">
             <div class="task__wrap-check">
@@ -82,8 +83,11 @@
           </div>
         </div>
         <form class="task-add" name="addForm">
+          <h3 class="task-add__heading section__heading">
+            Add a task
+          </h3>
           <input type="text" name="addInput" class="task-add__text"
-            id="addInput">
+            id="addInput" placeholder="Type your task here...">
           <button type="submit" class="task-add__btn" id="addBtn">
             <img src="img/submit.svg" alt="add button icon">
           </button>
@@ -106,6 +110,13 @@
       </p>
       <button class="delete-modal__accept">Delete</button>
       <button class="delete-modal__decline">Cancel</button>
+    </div>
+  </div>
+  <div class="empty-modal">
+    <div class="empty-modal__container container">
+      <h3 class="empty-modal__title">Input is empty!</h3>
+      <p class="empty-modal__text">You need to type something into the field.
+      </p>
     </div>
   </div>
 </body>

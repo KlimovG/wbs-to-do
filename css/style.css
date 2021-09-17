@@ -25,7 +25,9 @@ a {
   text-decoration: none;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -49,13 +51,27 @@ button {
 
 /* Common styles */
 
-/* Header */
-
 .title {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.section {
+  padding: 30px 0;
+}
+
+.section__title {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+
+.section__heading {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Header */
 
 .header__nav {
   position: relative;
@@ -190,7 +206,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 40px;
+  width: 100%;
+}
+
+.task-add__heading {
+  width: 100%;
+  text-align: center;
 }
 
 .task-add__text {
@@ -198,12 +221,15 @@ button {
   border-radius: 10px;
   margin-right: 15px;
   padding: 10px 15px;
+  width: 60%;
 
 }
 
 .task-add__btn {
   cursor: pointer;
 }
+
+
 
 /* Styles for complete tasks */
 .task.complete {
@@ -222,15 +248,16 @@ button {
   border-radius: 1px;
 }
 
-/* Delete modal styles */
-.delete-modal {
+/* Delete and empty modal styles */
+.delete-modal,
+.empty-modal {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 10;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background-color: rgba(56, 63, 80, 0.5);
@@ -239,16 +266,19 @@ button {
   transition: opacity .3s, visibility .3s;
 }
 
-.delete-modal.active {
+.delete-modal.active,
+.empty-modal.active {
   opacity: 1;
   visibility: visible;
 }
 
-.delete-modal.active .delete-modal__container {
+.delete-modal.active .delete-modal__container,
+.empty-modal.active .empty-modal__container {
   transform: translateY(0);
 }
 
-.delete-modal__container {
+.delete-modal__container,
+.empty-modal__container {
   max-width: 310px;
   padding: 20px 30px;
   background-color: #fff;
@@ -257,8 +287,15 @@ button {
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
-  transform: translateY(-200px);
   transition: transform .3s;
+}
+
+.delete-modal__container {
+  transform: translateY(-200px);
+}
+
+.empty-modal__container {
+  transform: translateY(200px)
 }
 
 .delete-modal__title {

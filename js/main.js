@@ -1,5 +1,4 @@
-// Add button
-// 1. variable declaration
+// variable declaration
 const addForm = document.forms.addForm;
 const taskContainer = document.querySelector('#taskContainer');
 const addInput = addForm.querySelector('#addInput');
@@ -12,16 +11,29 @@ let checkboxTaskLabel = document.getElementsByClassName('task__check-label')
 let checkboxTaskInput = document.getElementsByClassName('task__checkbox')
 let tasks = document.getElementsByClassName('task')
 let numOfTask = tasks.length
+const emptyModal = document.querySelector('.empty-modal')
+const deleteModal = document.querySelector('.delete-modal');
+const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
+const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
+const deleteModalContainer = deleteModal.querySelector('.delete-modal__container')
 
+//change display for modals
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    emptyModal.style.display = "flex";
+    deleteModal.style.display = "flex";
 
+  }, 1000);
 
+});
 
+// Add button
 // 2. Declare the function to create a task
 
 const addTask = (task, i) => {
   //Variable with html template for tasks
   const taskTemplate = `
-    <div class="task">
+    <div class="task" data-id=${i}>
       <div class="task__wrap-check">
         <input id="taskCheck${i}" name="taskCheck" type="checkbox"
           class="task__checkbox">
@@ -29,7 +41,6 @@ const addTask = (task, i) => {
       </div>
       <div class="task__wrap-input">
         <input disabled type="text" class="task__text" name="input-task" value="${task}">
-
       </div>
       <button class="task__edit">
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +70,19 @@ addForm.addEventListener("submit", (e) => {
   // it has to be checked if the input is empty
   e.preventDefault()
   if (!addInput.value || !/\S/.test(addInput.value)) {
-    alert("Input is empty")
+    // alert("Input is empty")
+    emptyModal.classList.add("active")
+    emptyModal.addEventListener("click", (e) => {
+      const target = e.target;
+      if (emptyModal == target) {
+        emptyModal.classList.remove("active")
+      }
+    })
+    if (emptyModal.classList.contains("active")) {
+      setTimeout(() => {
+        emptyModal.classList.remove("active")
+      }, 3000);
+    }
   } else {
     // if it false, then the function addTask will be executed
     addTask(addInput.value, numOfTask);
@@ -87,10 +110,15 @@ function editBtnLoop() {
       //4. function when the editable input lose it focus or changed
       enableEditInput(editableInput[i])
       editBtn[i].classList.add("active")
-      // add value for label and input after changes
+      //Deactivate the edition of input if enter wass pressed
+      editableInput[i].addEventListener('keypress', (e) => {
+        if (e.key == "Enter") disableEditInput(editableInput[i], editBtn[i])
+      })
+      //Deactivate the edition of input if focus is out
       editableInput[i].addEventListener('focusout', () => {
         disableEditInput(editableInput[i], editBtn[i])
       })
+      //Deactivate the edition of input if input was changed
       editableInput[i].addEventListener('change', () => {
         disableEditInput(editableInput[i], editBtn[i])
       })
@@ -102,10 +130,6 @@ editBtnLoop()
 //Delete task
 //1. Futnction to loop all delete buttons
 function deleteBtnLoop() {
-  const deleteModal = document.querySelector('.delete-modal');
-  const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
-  const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
-  const deleteModalContainer = deleteModal.querySelector('.delete-modal__container')
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", () => {
       deleteBtn[i].classList.add('active')
@@ -136,17 +160,23 @@ deleteBtnLoop()
 //Completed tasks
 function completeTask() {
   for (let i = 0; i < tasks.length; i++) {
-    checkboxTaskInput[i].addEventListener("change", () => {
-      // check checkboxes istead of div task
+    checkboxTaskInput[i].onchange = () => {
+
       console.log(i)
       tasks[i].classList.toggle("complete")
-      // } else {
-      //   tasks[i].classList.add("complete")
 
-      // }
+    }
+    // checkboxTaskInput[i].addEventListener("change", () => {
+    //   // check checkboxes istead of div task
+    //   console.log(i)
+    //   tasks[i].classList.add("complete")
+    //   // } else {
+    //   //   tasks[i].classList.add("complete")
+
+    //   // }
 
 
-    })
+    // })
   };
 }
 completeTask()
