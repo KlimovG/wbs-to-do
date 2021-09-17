@@ -102,9 +102,32 @@ editBtnLoop()
 //Delete task
 //1. Futnction to loop all delete buttons
 function deleteBtnLoop() {
+  const deleteModal = document.querySelector('.delete-modal');
+  const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
+  const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
+  const deleteModalContainer = deleteModal.querySelector('.delete-modal__container')
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", () => {
-      tasks[i].remove()
+      deleteBtn[i].classList.add('active')
+      // add a class to delete modal
+      deleteModal.classList.add("active")
+      deleteModalAccept.addEventListener("click", () => {
+        deleteModal.classList.remove("active")
+        tasks[i].remove()
+        deleteBtn[i].classList.remove('active')
+      })
+      deleteModalDecline.addEventListener("click", () => {
+        deleteModal.classList.remove("active")
+        deleteBtn[i].classList.remove('active')
+
+      })
+      deleteModal.addEventListener("click", (e) => {
+        const target = e.target;
+        if (deleteModal == target) {
+          deleteBtn[i].classList.remove('active')
+          deleteModal.classList.remove("active")
+        }
+      })
     })
   };
 }

@@ -9,6 +9,10 @@ html {
   color: #383F50;
 }
 
+/* body {
+  position: relative;
+} */
+
 input,
 button {
   appearance: none;
@@ -216,4 +220,73 @@ button {
   z-index: 9;
   background-color: #2E3239;
   border-radius: 1px;
+}
+
+/* Delete modal styles */
+.delete-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(56, 63, 80, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+}
+
+.delete-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-modal.active .delete-modal__container {
+  transform: translateY(0);
+}
+
+.delete-modal__container {
+  max-width: 310px;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(-200px);
+  transition: transform .3s;
+}
+
+.delete-modal__title {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.delete-modal__text {
+  width: 100%;
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.delete-modal__accept,
+.delete-modal__decline {
+  padding: 12px 24px;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #f2f2f2;
+}
+
+.delete-modal__accept {
+  margin-right: 30px;
+  background-color: #EB5757;
+}
+
+.delete-modal__decline {
+  background-color: #B2B7BB;
 }
