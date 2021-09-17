@@ -84,6 +84,7 @@ button {
   left: 0;
   width: 100%;
   z-index: 5;
+  padding: 10px 0;
   background-color: #F4F6FA;
 }
 
