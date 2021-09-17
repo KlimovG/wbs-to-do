@@ -17,6 +17,7 @@ const deleteModal = document.querySelector('.delete-modal');
 const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
 const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
 const deleteModalContainer = deleteModal.querySelector('.delete-modal__container')
+const completedTasksContainer = document.querySelector("#completedTasksContainer")
 
 //change display for modals
 // document.addEventListener("DOMContentLoaded", () => {
@@ -176,15 +177,17 @@ function completeTask() {
   for (let i = 0; i < tasks.length; i++) {
     checkboxTaskInput[i].onchange = () => {
 
-      console.log(i)
+
+    
       tasks[i].classList.toggle("complete")
       if (tasks[i].classList.contains("complete")) {
-        editBtn[i].disabled = true
-      } else {
+        editBtn[i].disabled = true  
+        completedTasksContainer.insertAdjacentElement("beforeend", tasks[i]);
+      } else { 
         editBtn[i].disabled = false
-
+        taskContainer.insertAdjacentElement("beforeend", tasks[i]);
       }
-
+      
     }
   };
 }
