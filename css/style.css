@@ -80,9 +80,15 @@ button {
 
 .header {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 5;
   background-color: #F4F6FA;
+}
+
+.header__logo {
+  width: 50px;
 }
 
 .header__nav {
