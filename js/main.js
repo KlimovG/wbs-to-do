@@ -11,6 +11,7 @@ let tasksComplete = document.getElementsByClassName('task-complete')
 let checkboxTaskLabel = document.getElementsByClassName('task__check-label')
 let checkboxTaskInput = document.getElementsByClassName('task__checkbox')
 let tasks = document.getElementsByClassName('task')
+let tasksCompleted = document.getElementsByClassName('complete')
 let numOfTask = tasks.length
 const emptyModal = document.querySelector('.empty-modal')
 const deleteModal = document.querySelector('.delete-modal');
@@ -95,7 +96,6 @@ addForm.addEventListener("submit", (e) => {
 
 //4. add an active class to task add button if add input not empty
 addInput.addEventListener("keyup", (e) => {
-  console.log(e.key)
   if (e.key == "space" || !addInput.value || !/\S/.test(addInput.value)) {
     addBtn.classList.remove('active')
     if (!addInput.value) {
@@ -175,19 +175,21 @@ deleteBtnLoop()
 //Completed tasks
 function completeTask() {
   for (let i = 0; i < tasks.length; i++) {
-    checkboxTaskInput[i].onchange = () => {
+    checkboxTaskInput[i].onchange = (e) => {
+      const target = e.target;
 
 
-    
       tasks[i].classList.toggle("complete")
       if (tasks[i].classList.contains("complete")) {
-        editBtn[i].disabled = true  
-        completedTasksContainer.insertAdjacentElement("beforeend", tasks[i]);
-      } else { 
+        console.log(target)
+        editBtn[i].disabled = true
+        completedTasksContainer.insertAdjacentElement("afterbegin", tasks[i]);
+      } else {
+        console.log(target)
         editBtn[i].disabled = false
-        taskContainer.insertAdjacentElement("beforeend", tasks[i]);
+        taskContainer.insertAdjacentElement("afterbegin", tasks[i]);
       }
-      
+
     }
   };
 }
