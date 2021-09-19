@@ -243,7 +243,7 @@ function completeTask() {
         console.log(task)
         task.classList.remove("task-complete")
         editBtn.disabled = false
-        actualTasksContainer.insertAdjacentElement("afterbegin", task);
+        actualTasksContainer.insertAdjacentElement("beforeend", task);
         task.classList.add("task-actual")
 
       }
