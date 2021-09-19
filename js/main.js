@@ -218,27 +218,31 @@ function deleteTask() {
 deleteTask()
 
 //Completed tasks
-//Applications. Function expression to check a task as completed
+//1. Function expression to check a task as completed or actual and move it other container
 function completeTask() {
+  // 2. needable variables
   const completedTasksContainer = document.querySelector('#completedTasksContainer')
   const actualTasksContainer = document.querySelector('#actualTasksContainer')
   const checkboxTaskInput = actualTasksContainer.getElementsByClassName('task__checkbox');
   const editBtn = actualTasksContainer.getElementsByClassName('task__edit');
+  // 3. loop through all checkbox buttons according to all tasks 
   for (let i = 0; i < numOfTask; i++) {
-    // console.log(taskActual)
+    // 4. variable for closes task for checkboxTaskInput[i]
     const task = checkboxTaskInput[i].closest(".task")
-    // console.log(checkboxTaskInput)
+    // 5. evenent listener on checkboxTaskInput[i]
     checkboxTaskInput[i].onchange = (e) => {
       const target = e.target;
+      // 6. if task isn't complete then move to completed tasks
       if (task.classList.contains('task-actual')) {
         console.log(task)
         task.classList.add("task-complete")
         setTimeout(() => {
           editBtn.disabled = true
-          completedTasksContainer.insertAdjacentElement("afterbegin", task);
+          completedTasksContainer.insertAdjacentElement("beforeend", task);
         }, 500);
         task.classList.remove("task-actual")
 
+        // 6. if task is complete then move to actual tasks
       } else if (task.classList.contains('task-complete')) {
         console.log(task)
         task.classList.remove("task-complete")
@@ -247,9 +251,6 @@ function completeTask() {
         task.classList.add("task-actual")
 
       }
-      // console.log(taskActual[i])
-      // console.log(taskActual)
-      // console.log(target)
 
     }
   };
