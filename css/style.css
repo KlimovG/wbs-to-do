@@ -305,16 +305,16 @@ button {
 
 /* Styles for complete tasks */
 
-.task.complete input,
-.task.complete button:first-of-type {
+.task-complete input,
+.task-complete button:first-of-type {
   opacity: 0.5;
 }
 
-.task.complete button:last-of-type svg {
+.task-complete button:last-of-type svg {
   fill: #EB5757;
 }
 
-.task.complete::after {
+.task-complete::after {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
@@ -323,7 +323,7 @@ button {
 /* Delete and empty modal styles */
 .delete-modal,
 .empty-modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -399,7 +399,8 @@ button {
 .delete-modal__decline {
   background-color: #B2B7BB;
 }
-.completed-tasks__row{
+
+.completed-tasks__row {
   flex-direction: column;
   width: 100%;
 }
