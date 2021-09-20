@@ -79,7 +79,7 @@ const createTask = () => {
             </g>
           </svg>
         </button>
-        <button class="task__delete">
+        <button class="task__delete delete-actual">
         <svg viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">
           <path d="M9.39062 4.672H9.1875C9.29922 4.672 9.39062 4.58059 9.39062 4.46887V4.672H17.1094V4.46887C17.1094 4.58059 17.2008 4.672 17.3125 4.672H17.1094V6.50012H18.9375V4.46887C18.9375 3.57258 18.2088 2.84387 17.3125 2.84387H9.1875C8.29121 2.84387 7.5625 3.57258 7.5625 4.46887V6.50012H9.39062V4.672ZM22.1875 6.50012H4.3125C3.86309 6.50012 3.5 6.86321 3.5 7.31262V8.12512C3.5 8.23684 3.59141 8.32825 3.70312 8.32825H5.23672L5.86387 21.6075C5.90449 22.4734 6.62051 23.1564 7.48633 23.1564H19.0137C19.882 23.1564 20.5955 22.4759 20.6361 21.6075L21.2633 8.32825H22.7969C22.9086 8.32825 23 8.23684 23 8.12512V7.31262C23 6.86321 22.6369 6.50012 22.1875 6.50012ZM18.8182 21.3282H7.68184L7.06738 8.32825H19.4326L18.8182 21.3282Z" />
         </svg>
@@ -181,42 +181,94 @@ editTask()
 
 //Delete task
 //1. Futnction expression to loop all delete buttons
-function deleteTask() {
-  let deleteBtn = document.getElementsByClassName('task__delete');
-  const deleteModal = document.querySelector('.delete-modal');
-  const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
-  const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
-  const deleteModalContainer = deleteModal.querySelector('.delete-modal__container');
-  for (let i = 0; i < numOfTask; i++) {
-    const task = deleteBtn[i].closest('.task')
-    console.log(deleteBtn[i])
-    deleteBtn[i].addEventListener("click", () => {
-      deleteBtn[i].classList.add('active')
-      // add a class to delete modal
-      deleteModal.classList.add("active")
-      deleteModalAccept.addEventListener("click", () => {
-        deleteModal.classList.remove("active")
-        deleteBtn[i].classList.remove('active')
-        task.remove()
-        // numOfTask--;
-      })
-      deleteModalDecline.addEventListener("click", () => {
-        deleteModal.classList.remove("active")
-        deleteBtn[i].classList.remove('active')
 
-      })
-      deleteModal.addEventListener("click", (e) => {
-        const target = e.target;
-        if (deleteModal == target) {
-          deleteBtn[i].classList.remove('active')
-          deleteModal.classList.remove("active")
-        }
-      })
-    })
-  };
+const deleteModal = document.querySelector('.delete-modal');
+const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
+const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
+const deleteModalContainer = deleteModal.querySelector('.delete-modal__container');
+
+function deleteTask() {
+  // const taskCompleteContainer = document.querySelector('#completedTasksContainer')
+  // let deleteBtnComplete = taskCompleteContainer.getElementsByClassName('task__delete');
+
+  // console.log(deleteBtnActual.length)
+  // console.log(deleteBtnComplete.length)
+  deleteCompletedTasks()
+  deleteActualTasks()
 }
 deleteTask()
 
+function deleteCompletedTasks() {
+  const taskCompleteContainer = document.querySelector('#completedTasksContainer')
+  let deleteBtnComplete = taskCompleteContainer.getElementsByClassName('delete-complete');
+  const taskComplete = document.getElementsByClassName('task-complete')
+  for (let i = 0; i < taskComplete.length; i++) {
+    const task = deleteBtnComplete[i].closest('.task')
+    deleteBtnComplete[i].onclick = () => {
+      console.log(deleteBtnComplete[i])
+      console.log(i)
+      deleteBtnComplete[i].classList.add('active')
+      // add a class to delete modal
+      deleteModal.classList.add("active")
+      deleteModalAccept.onclick = () => {
+        deleteModal.classList.remove("active")
+        deleteBtnComplete[i].classList.remove('active')
+        task.remove()
+        numOfTask--;
+      }
+      deleteModalDecline.onclick = () => {
+        deleteModal.classList.remove("active")
+        deleteBtnComplete[i].classList.remove('active')
+
+      }
+      deleteModal.onclick = (e) => {
+        const target = e.target;
+        if (deleteModal == target) {
+          deleteBtnComplete[i].classList.remove('active')
+          deleteModal.classList.remove("active")
+        }
+      }
+    }
+  };
+}
+deleteCompletedTasks()
+
+function deleteActualTasks() {
+  const taskActualContainer = document.querySelector('#actualTasksContainer')
+  let deleteBtnActual = taskActualContainer.getElementsByClassName('delete-actual');
+  const taskActual = document.getElementsByClassName('task-actual')
+  for (let i = 0; i < taskActual.length; i++) {
+    const task = deleteBtnActual[i].closest('.task-actual')
+    deleteBtnActual[i].onclick = () => {
+      console.log(deleteBtnActual)
+      console.log(i)
+      console.log(taskActual.length)
+      deleteBtnActual[i].classList.add('active')
+      // add a class to delete modal
+      deleteModal.classList.add("active")
+      deleteModalAccept.onclick = () => {
+        deleteModal.classList.remove("active")
+        deleteBtnActual[i].classList.remove('active')
+        task.remove()
+        numOfTask--;
+      }
+      deleteModalDecline.onclick = () => {
+        deleteModal.classList.remove("active")
+        deleteBtnActual[i].classList.remove('active')
+
+      }
+      deleteModal.onclick = (e) => {
+        const target = e.target;
+        if (deleteModal == target) {
+          deleteBtnActual[i].classList.remove('active')
+          deleteModal.classList.remove("active")
+        }
+      }
+    }
+
+  }
+}
+deleteActualTasks()
 //Completed tasks
 //1. Function expression to check a task as completed or actual and move it other container
 function completeTask() {
@@ -226,29 +278,39 @@ function completeTask() {
   const checkboxTaskInput = actualTasksContainer.getElementsByClassName('task__checkbox');
   const editBtn = actualTasksContainer.getElementsByClassName('task__edit');
   // 3. loop through all checkbox buttons according to all tasks 
-  for (let i = 0; i < numOfTask; i++) {
+  for (let i = 0; i < checkboxTaskInput.length; i++) {
     // 4. variable for closes task for checkboxTaskInput[i]
     const task = checkboxTaskInput[i].closest(".task")
+    const deleteBtn = task.querySelector(".task__delete")
     // 5. evenent listener on checkboxTaskInput[i]
     checkboxTaskInput[i].onchange = (e) => {
+      console.log(deleteBtn)
       const target = e.target;
       // 6. if task isn't complete then move to completed tasks
       if (task.classList.contains('task-actual')) {
+
         console.log(task)
         task.classList.add("task-complete")
+        deleteBtn.classList.add("delete-complete")
+        deleteBtn.classList.remove("delete-actual")
         setTimeout(() => {
           editBtn.disabled = true
           completedTasksContainer.insertAdjacentElement("beforeend", task);
+          deleteTask()
         }, 500);
         task.classList.remove("task-actual")
 
         // 6. if task is complete then move to actual tasks
       } else if (task.classList.contains('task-complete')) {
+
         console.log(task)
         task.classList.remove("task-complete")
+        deleteBtn.classList.remove("delete-complete")
+        deleteBtn.classList.add("delete-actual")
         editBtn.disabled = false
         actualTasksContainer.insertAdjacentElement("beforeend", task);
         task.classList.add("task-actual")
+        deleteTask()
 
       }
 
@@ -256,21 +318,3 @@ function completeTask() {
   };
 }
 completeTask()
-
-// function completeTask() {
-//   // const taskComplete = document.getElementsByClassName('task-complete');
-//   // const completedTasksContainer = document.querySelector('#completedTasksContainer')
-//   // const actualTasksContainer = document.querySelector('#actualTasksContainer')
-//   const checkboxTaskInput = document.getElementsByClassName('task__checkbox');
-//   const tasks = document.getElementsByClassName('task')
-//   const editBtn = document.getElementsByClassName('task__edit');
-//   for (let i = 0; i < numOfTask; i++) {
-//     checkboxTaskInput[i].onchange = (e) => {
-//       const target = e.target;
-//       tasks[i].classList.toggle("task-complete")
-//       editBtn.disabled = true
-//     }
-//   };
-// }
-// completeTask()
-// completeTask()

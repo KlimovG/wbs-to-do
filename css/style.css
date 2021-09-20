@@ -130,6 +130,9 @@ button {
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
+  transform: translateX(0);
+  transition: transform .3s .3s;
+
 }
 
 .task::after {
@@ -318,6 +321,10 @@ button {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
+}
+
+.task-complete-animation {
+  transform: translateX(-200px);
 }
 
 /* Delete and empty modal styles */
