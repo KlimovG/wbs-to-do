@@ -1,38 +1,26 @@
-//Create a class for tasks
-class Task {
-  constructor(id, value, check) {
-    this._id = id;
-    this._value = value;
-    this._check = check
+const APP_NAME = "todoGeorgiiKelvin";
+
+
+class ToDo {
+  constructor() {
+    this._listOfTask = []
   }
-  get id() {
-    return this._id
+  get listOfTask() {
+    return this._listOfTask
   }
-  get value() {
-    return this._value
+  set listOfTask(tasks) {
+    return this._listOfTask = tasks
   }
-  get check() {
-    return this._check
-  }
-  set id(id) {
-    this._id = id
-  }
-  set value(value) {
-    this._value = value
-  }
-  set check(check) {
-    this._check = check
-  }
-  createTask(container) {
+  createTemplate(i) {
     const template = `
-    <div class="task" data-id=${this._id}>
+    <div class="task task-actual" data-id=${this._listOfTask[i].id}>
       <div class="task__wrap-check">
-        <input id="taskCheck${this._id}" name="taskCheck" type="checkbox"
+        <input id="taskCheck${this._listOfTask[i].id}" name="taskCheck" type="checkbox"
           class="task__checkbox">
-        <label for="taskCheck${this._id}" class="task__check-label"></label>
+        <label for="taskCheck${this._listOfTask[i].id}" class="task__check-label"></label>
       </div>
       <div class="task__wrap-input">
-        <input disabled type="text" class="task__text" name="input-task" value="${this._value}">
+        <input disabled type="text" class="task__text" name="input-task" value="${this._listOfTask[i].value}">
       </div>
       <button class="task__edit">
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -49,8 +37,74 @@ class Task {
       </button>
       </div>
       `;
-    container.insertAdjacentHTML("beforeend", template);
+    return template
   }
+  createTask() {
+    const taskContainer = document.querySelector('#actualTasksContainer');
+    let i = this._listOfTask.length - 1
+    taskContainer.insertAdjacentHTML("beforeend", this.createTemplate(i));
+  }
+  addTask() {
+    const addForm = document.forms.addForm;
+    const addInput = addForm.querySelector('#addInput');
+    const addBtn = addForm.querySelector('#addBtn');
+    const emptyModal = document.querySelector('.empty-modal')
+    let numOfTask = 0;
+    // 2. add a click listener to addBtn to create the task
+    addForm.addEventListener("submit", (e) => {
+      // 3. input has to be checked if it empty
+      e.preventDefault()
+      if (!addInput.value || !/\S/.test(addInput.value)) {
+        // alert("Input is empty")
+        addInput.setAttribute("disabled", true)
+        emptyModal.classList.add("active")
+        emptyModal.addEventListener("click", (e) => {
+          const target = e.target;
+          if (emptyModal == target) {
+            emptyModal.classList.remove("active")
+            addInput.removeAttribute("disabled")
+            addInput.focus();
+          }
+        })
+        if (emptyModal.classList.contains("active")) {
+          setTimeout(() => {
+            emptyModal.classList.remove("active")
+            addInput.removeAttribute("disabled")
+            addInput.focus();
+
+          }, 3000);
+        }
+      } else {
+        this._listOfTask.push({
+          "id": this._listOfTask.length + 1,
+          "value": addInput.value
+        })
+        // 4. if the add input is'n empty, then the function addTask will be executed
+        // numOfTask++;
+        this.createTask();
+        this.editTask()
+        this.completeTask()
+        this.deleteTask();
+        // After this the value of addInput need to be cleared 
+        addInput.value = "";
+        localStorage.setItem(APP_NAME, JSON.stringify(task.listOfTask));
+
+
+      }
+    })
+    // 5. add an active class to task add button if add input not empty
+    addInput.addEventListener("keyup", (e) => {
+      if (e.key == "space" || !addInput.value || !/\S/.test(addInput.value)) {
+        addBtn.classList.remove('active')
+        if (!addInput.value) {
+          addBtn.classList.remove('active')
+        }
+      } else {
+        addBtn.classList.add('active')
+      }
+    })
+  }
+
   editTask() {
     //1. Function declaration to put eneble the input und put the cursor into it
     const enableEditInput = (input) => {
@@ -62,52 +116,129 @@ class Task {
       input.setAttribute("disabled", true)
       btn.classList.remove("active")
     }
-    const task = document.querySelector(`[data-id="${this._id}]`)
-    let editBtn = task.getElementsByClassName('task__edit');
-    let editableInput = task.getElementsByClassName('task__text');
-    editBtn.addEventListener("click", () => {
-      //4. function when the editable input lose it focus or changed
-      enableEditInput(editableInput)
-      editBtn.classList.add("active")
-      //Deactivate the edition of input if enter wass pressed
-      editableInput.addEventListener('keypress', (e) => {
-        if (e.key == "Enter") disableEditInput(editableInput, editBtn)
+    let editBtn = document.getElementsByClassName('task__edit');
+    let editableInput = document.getElementsByClassName('task__text');
+    for (let i = 0; i < this._listOfTask.length; i++) {
+      editBtn[i].addEventListener("click", () => {
+        // const task = editBtn[i].closest('.task')
+        //4. function when the editable input lose it focus or changed
+        enableEditInput(editableInput[i])
+        editBtn[i].classList.add("active")
+        //Deactivate the edition of input if enter wass pressed
+        editableInput[i].addEventListener('keypress', (e) => {
+          if (e.key == "Enter") {
+            this._listOfTask[i].value = editableInput[i].value
+            disableEditInput(editableInput[i], editBtn[i])
+          }
+        })
+        //Deactivate the edition of input if focus is out
+        editableInput[i].addEventListener('focusout', () => {
+          disableEditInput(editableInput[i], editBtn[i])
+        })
+        //Deactivate the edition of input if input was changed
+        editableInput[i].addEventListener('change', () => {
+          disableEditInput(editableInput[i], editBtn[i])
+        })
       })
-      //Deactivate the edition of input if focus is out
-      editableInput.addEventListener('focusout', () => {
-        disableEditInput(editableInput, editBtn)
-      })
-      //Deactivate the edition of input if input was changed
-      editableInput.addEventListener('change', () => {
-        disableEditInput(editableInput, editBtn)
-      })
-    })
+    };
   }
   deleteTask() {
-    this.remove()
+    const deleteModal = document.querySelector('.delete-modal');
+    const deleteModalAccept = deleteModal.querySelector('.delete-modal__accept');
+    const deleteModalDecline = deleteModal.querySelector('.delete-modal__decline');
+    const deleteModalContainer = deleteModal.querySelector('.delete-modal__container');
+    const taskContainer = document.querySelector('#actualTasksContainer')
+    let deleteBtn = document.getElementsByClassName('task__delete');
+    for (let i = 0; i < this._listOfTask.length; i++) {
+      const task = deleteBtn[i].closest('.task')
+
+      deleteBtn[i].onclick = () => {
+        console.log(deleteBtn[i])
+        console.log(deleteBtn)
+        console.log(i)
+        deleteBtn[i].classList.add('active')
+        // add a class to delete modal
+        deleteModal.classList.add("active")
+        deleteModalAccept.onclick = () => {
+          deleteModal.classList.remove("active")
+          deleteBtn[i].classList.remove('active')
+          task.remove()
+          this._listOfTask.splice(i, 1);
+        }
+        deleteModalDecline.onclick = () => {
+          deleteModal.classList.remove("active")
+          deleteBtn[i].classList.remove('active')
+
+        }
+        deleteModal.onclick = (e) => {
+          const target = e.target;
+          if (deleteModal == target) {
+            deleteBtn[i].classList.remove('active')
+            deleteModal.classList.remove("active")
+          }
+        }
+      }
+    };
+  }
+
+  completeTask() {
+    // 2. needable variables
+    const completedTasksContainer = document.querySelector('#completedTasksContainer')
+    const actualTasksContainer = document.querySelector('#actualTasksContainer')
+    const checkboxTaskInput = document.getElementsByClassName('task__checkbox');
+    const editBtn = document.getElementsByClassName('task__edit');
+    // 3. loop through all checkbox buttons according to all tasks 
+    for (let i = 0; i < this._listOfTask.length; i++) {
+      // 4. variable for closes task for checkboxTaskInput[i]
+      const task = checkboxTaskInput[i].closest(".task")
+      // 5. evenent listener on checkboxTaskInput[i]
+      checkboxTaskInput[i].onchange = (e) => {
+        const target = e.target;
+        console.log("checked")
+        // 6. if task isn't complete then move to completed tasks
+        if (task.classList.contains('task-actual')) {
+
+          console.log(task)
+          console.log(checkboxTaskInput[i])
+          task.classList.add("task-complete")
+          setTimeout(() => {
+            editBtn.disabled = true
+            completedTasksContainer.insertAdjacentElement("beforeend", task);
+            this.deleteTask()
+          }, 500);
+          task.classList.remove("task-actual")
+
+          // 6. if task is complete then move to actual tasks
+        } else if (task.classList.contains('task-complete')) {
+
+          console.log(task)
+          task.classList.remove("task-complete")
+          editBtn.disabled = false
+          actualTasksContainer.insertAdjacentElement("beforeend", task);
+          task.classList.add("task-actual")
+          this.deleteTask()
+        }
+
+      }
+    };
+  }
+  returnTasks() {
+    let retrievedData = localStorage.getItem(APP_NAME);
+    const taskContainer = document.querySelector('#actualTasksContainer');
+
+    if (retrievedData) {
+      this._listOfTask = JSON.parse(retrievedData);
+      for (let i = 0; i < this._listOfTask.length; i++) {
+        console.log(this._listOfTask[i])
+
+        taskContainer.insertAdjacentHTML("beforeend", this.createTemplate(i));
+      }
+    }
   }
 }
 
-let numOfTask = 1;
-let tasks = document.getElementsByClassName('task')
-document.querySelector('#addBtn').addEventListener("click", (e) => {
-  e.preventDefault()
-  const value = document.querySelector('#addInput').value;
-  const container = document.querySelector('#actualTasksContainer')
-  const newTask = new Task(numOfTask, value, true)
-  newTask.createTask(container)
-  numOfTask++;
-  editTaskLoop()
-})
-const taskEditBtn = document.getElementsByClassName("task__edit")
-
-function editTaskLoop() {
-  for (let i = 0; i < numOfTask; i++) {
-    taskEditBtn[i].addEventListener("click", () => {
-      console.log(taskEditBtn[i])
-      tasks[i].editTask()
-    })
-  }
-
-}
-editTaskLoop()
+const task = new ToDo();
+task.returnTasks()
+task.addTask()
+task.editTask()
+task.completeTask()
