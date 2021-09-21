@@ -49,7 +49,7 @@ class ToDo {
     const addInput = addForm.querySelector('#addInput');
     const addBtn = addForm.querySelector('#addBtn');
     const emptyModal = document.querySelector('.empty-modal')
-    let numOfTask = 0;
+    let numOfTask = this._listOfTask.length;
     // 2. add a click listener to addBtn to create the task
     addForm.addEventListener("submit", (e) => {
       // 3. input has to be checked if it empty
@@ -76,7 +76,7 @@ class ToDo {
         }
       } else {
         this._listOfTask.push({
-          "id": this._listOfTask.length + 1,
+          "id": numOfTask,
           "value": addInput.value
         })
         // 4. if the add input is'n empty, then the function addTask will be executed
@@ -88,7 +88,7 @@ class ToDo {
         // After this the value of addInput need to be cleared 
         addInput.value = "";
         localStorage.setItem(APP_NAME, JSON.stringify(task.listOfTask));
-
+        numOfTask++;
 
       }
     })
@@ -161,9 +161,12 @@ class ToDo {
         deleteModal.classList.add("active")
         deleteModalAccept.onclick = () => {
           deleteModal.classList.remove("active")
-          deleteBtn[i].classList.remove('active')
           task.remove()
+          console.log(this._listOfTask)
           this._listOfTask.splice(i, 1);
+          this.deleteTask()
+          localStorage.setItem(APP_NAME, JSON.stringify(task.listOfTask));
+
         }
         deleteModalDecline.onclick = () => {
           deleteModal.classList.remove("active")
@@ -233,6 +236,8 @@ class ToDo {
 
         taskContainer.insertAdjacentHTML("beforeend", this.createTemplate(i));
       }
+    } else {
+
     }
   }
 }
@@ -241,4 +246,5 @@ const task = new ToDo();
 task.returnTasks()
 task.addTask()
 task.editTask()
+task.deleteTask()
 task.completeTask()
