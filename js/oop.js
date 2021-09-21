@@ -77,7 +77,7 @@ class ToDo {
       } else {
         this._listOfTask.push({
           "id": numOfTask,
-          "value": addInput.value
+          "value": addInput.value,
         })
         // 4. if the add input is'n empty, then the function addTask will be executed
         // numOfTask++;
@@ -165,7 +165,7 @@ class ToDo {
           console.log(this._listOfTask)
           this._listOfTask.splice(i, 1);
           this.deleteTask()
-          localStorage.setItem(APP_NAME, JSON.stringify(task.listOfTask));
+          localStorage.removeItem(APP_NAME, JSON.stringify(task.listOfTask));
 
         }
         deleteModalDecline.onclick = () => {
@@ -231,13 +231,15 @@ class ToDo {
 
     if (retrievedData) {
       this._listOfTask = JSON.parse(retrievedData);
+    }
+    if (!this._listOfTask.length) {
+      console.log("nothing to add")
+    } else {
       for (let i = 0; i < this._listOfTask.length; i++) {
         console.log(this._listOfTask[i])
 
         taskContainer.insertAdjacentHTML("beforeend", this.createTemplate(i));
       }
-    } else {
-
     }
   }
 }
