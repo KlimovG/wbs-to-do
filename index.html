@@ -11,6 +11,16 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- <script src="js/main.js" defer></script> -->
   <script src="js/oop.js" defer></script>
+  <link rel='manifest' href='./manifest.json'>
+  <meta name="theme-color" content="#222831">
+  <script>
+    // Registering our Service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js', {
+        scope: './'
+      })
+    }
+  </script>
 </head>
 
 <body>
