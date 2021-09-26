@@ -11,6 +11,26 @@
       "src": "img/avatar.png",
       "sizes": "232x232",
       "type": "image/png"
-    }
+    },
+    {
+      "src": "img/avatar_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "img/avatar_512_square.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+  },
+  {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+  }
   ]
 }
