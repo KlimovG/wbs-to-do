@@ -1,8 +1,20 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
 /* Settings */
 * {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 14px;
+  -webkit-transition: opacity .3s, visibility .3s, background-color .3s, -webkit-transform .3s;
+  transition: opacity .3s, visibility .3s, background-color .3s, -webkit-transform .3s;
+  -o-transition: opacity .3s, visibility .3s, transform .3s, background-color .3s;
   transition: opacity .3s, visibility .3s, transform .3s, background-color .3s;
+  transition: opacity .3s, visibility .3s, transform .3s, background-color .3s, -webkit-transform .3s;
 }
 
 html {
@@ -16,6 +28,8 @@ html {
 
 input,
 button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   border: none;
   background-color: transparent;
@@ -41,20 +55,35 @@ button {
   max-width: 540px;
   margin: 0 auto;
   padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 /* Common styles */
 
 .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -102,6 +131,8 @@ button {
   position: absolute;
   bottom: -20px;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   width: 100%;
   height: 2px;
@@ -120,18 +151,31 @@ button {
 
 /* Task styles */
 .actual__row {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
 }
 
 .task {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
   transform: translateX(0);
+  -webkit-transition: -webkit-transform .3s .3s;
+  transition: -webkit-transform .3s .3s;
+  -o-transition: transform .3s .3s;
   transition: transform .3s .3s;
+  transition: transform .3s .3s, -webkit-transform .3s .3s;
 
 }
 
@@ -147,14 +191,26 @@ button {
   border-radius: 1px;
   opacity: 0;
   visibility: hidden;
+  -webkit-transform: translateX(-110%);
+  -ms-transform: translateX(-110%);
   transform: translateX(-110%);
+  -webkit-transition: opacity .3s, visibility .3s, -webkit-transform .3s;
+  transition: opacity .3s, visibility .3s, -webkit-transform .3s;
+  -o-transition: transform .3s, opacity .3s, visibility .3s;
   transition: transform .3s, opacity .3s, visibility .3s;
+  transition: transform .3s, opacity .3s, visibility .3s, -webkit-transform .3s;
 }
 
 
 .task__wrap-check {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -180,8 +236,11 @@ button {
   z-index: 2;
   width: 20px;
   height: 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#E8EAEE));
+  background: -o-linear-gradient(top, #FFFFFF 0%, #E8EAEE 100%);
   background: linear-gradient(180deg, #FFFFFF 0%, #E8EAEE 100%);
   border: 1.5px solid #CED1DA;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 7px;
 }
@@ -201,7 +260,11 @@ button {
   position: relative;
   margin-right: 20px;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -228,8 +291,14 @@ button {
 .task__edit,
 .task__delete {
   width: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -239,6 +308,8 @@ button {
 
 .task__edit svg,
 .task__delete svg {
+  -webkit-transition: fill .3s .3s;
+  -o-transition: fill .3s .3s;
   transition: fill .3s .3s
 }
 
@@ -261,9 +332,16 @@ button {
 }
 
 .task-add {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 40px;
   width: 100%;
@@ -288,8 +366,14 @@ button {
 
 .task-add__btn {
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -297,6 +381,8 @@ button {
   width: 38px;
   height: auto;
   fill: #383F50;
+  -webkit-transition: fill .1s;
+  -o-transition: fill .1s;
   transition: fill .1s;
 
 }
@@ -318,12 +404,16 @@ button {
 }
 
 .task-complete::after {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
 }
 
 .task-complete-animation {
+  -webkit-transform: translateX(-200px);
+  -ms-transform: translateX(-200px);
   transform: translateX(-200px);
 }
 
@@ -336,12 +426,20 @@ button {
   width: 100vw;
   height: 100vh;
   z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   background-color: rgba(56, 63, 80, 0.5);
   opacity: 0;
   visibility: hidden;
+  -webkit-transition: opacity .3s, visibility .3s;
+  -o-transition: opacity .3s, visibility .3s;
   transition: opacity .3s, visibility .3s;
 }
 
@@ -353,6 +451,8 @@ button {
 
 .delete-modal.active .delete-modal__container,
 .empty-modal.active .empty-modal__container {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
 }
 
@@ -362,18 +462,32 @@ button {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  -o-transition: transform .3s;
   transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
 }
 
 .delete-modal__container {
+  -webkit-transform: translateY(-200px);
+  -ms-transform: translateY(-200px);
   transform: translateY(-200px);
 }
 
 .empty-modal__container {
+  -webkit-transform: translateY(200px);
+  -ms-transform: translateY(200px);
   transform: translateY(200px)
 }
 
@@ -408,6 +522,9 @@ button {
 }
 
 .completed-tasks__row {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
 }

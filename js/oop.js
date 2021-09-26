@@ -227,34 +227,41 @@ class ToDo {
       // 5. evenent listener on checkboxTaskInput[i]
       checkboxTaskInput[i].onchange = (e) => {
         const target = e.target;
-        console.log("checked")
+        const taskValue = task.querySelector('.task__text').value
+        console.log(taskValue)
+        const taskFromListOfTask = this._listOfTask.find(task => task.value === taskValue)
+        console.log(taskFromListOfTask)
         // 6. if task isn't complete then move to completed tasks
         if (task.classList.contains('task-actual')) {
 
-          console.log(task)
-          console.log(checkboxTaskInput[i])
+
+
           task.classList.add("task-complete")
-          this._listOfTask[i].check = true
+          task.classList.remove("task-actual")
+
           setTimeout(() => {
             editBtn.disabled = true
             completedTasksContainer.insertAdjacentElement("beforeend", task);
             //Update the loop for delete tasks
             this.deleteTask()
+            this.completeTask()
+            taskFromListOfTask.check = true
+            localStorage.setItem(APP_NAME, JSON.stringify(this._listOfTask));
           }, 500);
-          task.classList.remove("task-actual")
-          localStorage.setItem(APP_NAME, JSON.stringify(this._listOfTask));
-
           // 6. if task is complete then move to actual tasks
         } else if (task.classList.contains('task-complete')) {
 
-          console.log(task)
+
           task.classList.remove("task-complete")
           editBtn.disabled = false
           actualTasksContainer.insertAdjacentElement("beforeend", task);
           task.classList.add("task-actual")
-          this._listOfTask[i].check = false
-          localStorage.setItem(APP_NAME, JSON.stringify(this._listOfTask));
           this.deleteTask()
+          this.completeTask()
+          taskFromListOfTask.check = false
+          localStorage.setItem(APP_NAME, JSON.stringify(this._listOfTask));
+          console.log(taskFromListOfTask)
+          console.log(this._listOfTask)
         }
 
       }
@@ -275,7 +282,6 @@ class ToDo {
 
         if (this._listOfTask[i].check === false) {
 
-          console.log(this._listOfTask[i])
 
           taskActualContainer.insertAdjacentHTML("beforeend", this.createActualTemplate(i));
         } else {
