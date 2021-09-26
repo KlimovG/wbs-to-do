@@ -314,6 +314,8 @@ button {
 }
 
 .task__edit svg {
+  width: 22px;
+  height: auto;
   fill: #383F50;
 }
 
