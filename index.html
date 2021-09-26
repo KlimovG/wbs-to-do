@@ -16,8 +16,8 @@
   <script>
     // Registering our Service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js', {
-        scope: './'
+      navigator.serviceWorker.register('../wbs-to-do/sw.js', {
+        scope: '../wbs-to-do/'
       })
     }
   </script>
@@ -29,10 +29,6 @@
       <div class="container">
         <h1 class="title"><img class="header__logo" src="img/logo.svg"
             alt="logo">To-Do</h1>
-        <nav class="header__nav">
-          <a href="#" class="header__link">Actual</a>
-          <a href="#" class="header__link">Completed</a>
-        </nav>
       </div>
     </header>
     <section class="section actual">
