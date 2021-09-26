@@ -275,7 +275,7 @@ button {
   background: #F4F6FA;
   border-radius: 10px;
   color: #383F50;
-
+  opacity: 1;
 }
 
 .task__text:focus {
